@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 *.log
 *.tmp
 .env
 .DS_Store
 secrets/
 credentials/
+=======
+# Object file
+*.o
+
+# Ada Library Information
+*.ali
+>>>>>>> 1ffbd97c9d4f61629cb5a326a59a44bd61afb215
