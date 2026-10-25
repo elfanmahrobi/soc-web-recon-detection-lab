@@ -1,0 +1,24 @@
+# Example only. Review paths, certificates, credentials, and version compatibility.
+filebeat.inputs:
+  - type: filestream
+    id: apache-access
+    enabled: true
+    paths:
+      - /var/log/apache2/access.log
+    fields:
+      lab_environment: soc-web-recon-detection-lab
+      service_role: ubuntu-web-server
+    fields_under_root: true
+
+  - type: filestream
+    id: apache-error
+    enabled: true
+    paths:
+      - /var/log/apache2/error.log
+    fields:
+      lab_environment: soc-web-recon-detection-lab
+      service_role: ubuntu-web-server
+    fields_under_root: true
+
+output.logstash:
+  hosts: ["192.168.56.121:5044"]

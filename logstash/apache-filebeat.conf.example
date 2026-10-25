@@ -1,0 +1,32 @@
+input {
+  beats {
+    port => 5044
+  }
+}
+
+filter {
+  if [log][file][path] =~ "access.log" {
+    grok {
+      match => {
+        "message" => "%{COMBINEDAPACHELOG}"
+      }
+    }
+    mutate {
+      add_field => {
+        "event.dataset" => "apache.access"
+        "lab_environment" => "soc-web-recon-detection-lab"
+      }
+    }
+    date {
+      match => ["timestamp", "dd/MMM/yyyy:HH:mm:ss Z"]
+    }
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["https://127.0.0.1:9200"]
+    index => "apache-web-%{+YYYY.MM.dd}"
+    # Configure authentication and CA trust securely for your environment.
+  }
+}
